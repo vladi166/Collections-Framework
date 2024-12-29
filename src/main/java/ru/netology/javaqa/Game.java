@@ -1,26 +1,29 @@
 package ru.netology.javaqa;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class Game {
-    List<Player> players = new ArrayList<>();
+    HashMap<String, Integer> players = new HashMap<>();
 
-    public void register(Player player){
-        players.add(player);
+    public void register(Player player) {
+        players.put(player.getName(), player.getStrength());
     }
 
-    public Player findByName(String name) {
-        for (Player player : players) {
-            if (player.getName().equals(name)) {
-                return player;
+    public Integer findByName(String name) {
+        for (String key : players.keySet()) {
+            if (key.equals(name)) {
+                Integer value = players.get(key);
+                return value;
             }
         }
         return null;
     }
-    public int round(String playerName1, String playerName2){
-        Player player1 = findByName(playerName1);
-        Player player2 = findByName(playerName2);
+
+    public int round(String playerName1, String playerName2) {
+        Integer player1 = findByName(playerName1);
+        Integer player2 = findByName(playerName2);
 
         if (player1 == null) {
             throw new NotRegisteredException(playerName1);
@@ -29,10 +32,10 @@ public class Game {
             throw new NotRegisteredException(playerName2);
         }
 
-        if (player1.getStrength() > player2.getStrength()) {
+        if (player1 > player2) {
             return 1;
         }
-        if (player2.getStrength() > player1.getStrength()) {
+        if (player2 > player1) {
             return 2;
         } else return 0;
     }
