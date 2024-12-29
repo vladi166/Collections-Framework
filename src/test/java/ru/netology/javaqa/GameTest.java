@@ -43,7 +43,7 @@ public class GameTest {
     }
 
     @Test
-    public void NotRegisteredPlayerThree() {
+    public void NotRegisteredPlayerOne() {
         Assertions.assertThrows(NotRegisteredException.class, () -> {
             game.round("Player 3", "Player 6");
         });
@@ -54,5 +54,10 @@ public class GameTest {
         Assertions.assertThrows(NotRegisteredException.class, () -> {
             game.round("Player 2", "Player 6");
         });
+    }
+    @Test
+    public void NoneOfThePlayersAreRegistered() {
+        Game game = new Game();
+        Assertions.assertThrows(NotRegisteredException.class, () -> game.round("Player 1", "Player 2"));
     }
 }
